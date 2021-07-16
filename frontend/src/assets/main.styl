@@ -1,0 +1,199 @@
+html
+  overflow-y auto
+
+.kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form .form-control
+    background: rgba(3, 3, 3, 0.4);
+
+#main-logo
+  max-width 200px
+  padding-right 20px
+
+#mobile-logo
+  max-width 150px
+
+//Login
+#login-bg
+  background-image url('../assets/images/login-bg.jpg') !important
+  background-position center
+  background-size cover
+
+.displayBlock
+  display block!important
+
+.kt-login__title
+  color #f9b418
+  font-family Oswald
+
+#divider
+  color #fff
+
+.kt-login.kt-login--v2 .kt-login__wrapper .kt-login__container .kt-form
+  margin 0 !important
+
+//Aside menu and brand
+#aside-toggle
+  color #ccc
+  font-size 1rem
+  height 5px
+
+#kt_aside_brand
+  background-color #222
+
+#kt_aside_menu_wrapper
+  background-color #353535
+
+#aside-menu
+  background-color #353535
+
+.kt-svg-icon
+  color #a2a3b7
+
+.kt-menu__link-text
+  font-family Oswald
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon
+  color #ccc
+  font-size 1.5rem
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__itemnot(.kt-menu__item--parent)not(.kt-menu__item--open)not(.kt-menu__item--here)not(.kt-menu__item--active)hover > .kt-menu__link
+  background-color #555555
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__heading, .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link
+  background-color #555555
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-icon
+  color #333
+
+.kt-aside-menu .kt-menu__nav > .kt-menu__section .kt-menu__section-text
+  color #f9b418
+  font-size 1.3rem
+  text-align center
+  font-family Oswald
+
+//Header Menu
+.kt-header
+  background-color #F9B418
+  border-bottom 0px
+
+.kt-header .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link .kt-menu__link-text, .kt-header .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-text, .kt-header .kt-header-menu .kt-menu__nav > .kt-menu__itemhover > .kt-menu__link .kt-menu__link-text
+  color #262626
+
+.kt-header .kt-header-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text
+  color #262626
+
+.kt-header-menu .kt-menu__nav > .kt-menu__item:hover:not(.kt-menu__item--here):not(.kt-menu__item--active) > .kt-menu__link .kt-menu__link-bullet.kt-menu__link-bullet--line > span, .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--hover:not(.kt-menu__item--here):not(.kt-menu__item--active) > .kt-menu__link .kt-menu__link-bullet.kt-menu__link-bullet--line > span
+  background-color #656565
+
+.kt-header-menu .kt-menu__nav > .kt-menu__item:hover:not(.kt-menu__item--here):not(.kt-menu__item--active) > .kt-menu__link .kt-menu__link-text, .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--hover:not(.kt-menu__item--here):not(.kt-menu__item--active) > .kt-menu__link .kt-menu__link-text
+  color #262626
+
+.kt-header .kt-header__topbar .kt-header__topbar-item.kt-header__topbar-item--user .kt-header__topbar-user .kt-header__topbar-welcome
+  color #262626
+
+.kt-header .kt-header__topbar .kt-header__topbar-item.kt-header__topbar-item--user .kt-header__topbar-user .kt-header__topbar-username
+  color #262626
+
+#search-icon
+  color #262626
+
+#notification-icon
+  color #262626
+
+@media (min-width: 1025px)
+  .kt-header--fixed.kt-subheader--fixed.kt-subheader--enabled .kt-wrapper
+    padding-top: 70px;
+
+
+//Components
+.v-btn
+  font-family Oswald
+
+.kt-portlet .kt-portlet__head .kt-portlet__head-label .kt-portlet__head-title
+  font-family Oswald
+
+.v-application .headline
+  font-family Oswald !important
+
+.ck-editor__editable
+    min-height 250px
+
+
+#componentLoaderContainer
+    position absolute
+    width 100%
+    height 100%
+    z-index 10
+    background-color rgba(255, 255, 255, .9)
+    display flex
+    flex-flow column wrap
+    place-content center
+    align-items center
+
+#componentLoader
+    width 170px
+    height 50px
+    background-color #fff
+    box-shadow 0px 0px 25px 0px rgba(0, 0, 0, 0.3)
+    border-radius 5px
+    padding 15px
+    position relative
+
+.positionRelative
+    position relative !important
+
+@media screen and (max-width: 1025px)
+  #search-icon
+    color white
+    font-size: 18px
+  #notification-icon
+    color white
+    font-size: 18px
+
+@media screen and (max-width: 425px)
+  #search-icon
+    font-size: 15px
+    height 15px
+  #notification-icon
+    font-size: 15px
+    height 15px
+
+@media (min-width: 768px)
+    .col-llg-4
+        -webkit-box-flex 0
+        -ms-flex 0 0 50%
+        flex 0 0 50%
+        max-width 50%
+@media (min-width: 925px)
+    .col-llg-4
+        -webkit-box-flex 0
+        -ms-flex 0 0 33.33333%
+        flex 0 0 33.33333%
+        max-width 33.33333%
+@media (min-width: 1025px)
+    .col-llg-4
+        -webkit-box-flex 0
+        -ms-flex 0 0 50%
+        flex 0 0 50%
+        max-width 50%
+@media (min-width: 1230px)
+    .col-llg-4
+        -webkit-box-flex 0
+        -ms-flex 0 0 33.33333%
+        flex 0 0 33.33333%
+        max-width 33.33333%
+
+.intro-carousel .VueCarousel-pagination
+    bottom 0px
+    background-color rgba(122,122,122,0.5)
+
+.intro-carousel .VueCarousel-pagination .VueCarousel-dot-container
+    margin-top 0px!important
+
+.intro-carousel .VueCarousel-pagination .VueCarousel-dot-container button
+    margin 0px!important
+
+.kt-aside
+    background-color #353535
+
+.v-input--selection-controls__ripple
+    z-index 1

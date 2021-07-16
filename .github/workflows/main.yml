@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Install laravel dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Copy .env.staging to .env and generate the app key
+        run: |
+          cp .env.staging .env
+          php artisan key:generate
+
+      - name: Run JWT Secret Generator to avoid Signature error
+        run: |
+          php artisan jwt:secret
+          php artisan config:clear
+
+      - name: Run check for new migration files
+        run: |
+          php artisan migrate
+
+      - name: Install frontend dependencies
+        run: |
+          yarn install
+        working-directory: ./frontend
+
+      - name: Run production build for the frontend
+        run: |
+          yarn build
+        working-directory: ./frontend
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker-compose -f .docker/docker-compose.yml -p webinarinc build
+          docker-compose -f .docker/docker-compose.yml -p webinarinc push
+
+      - name: Logout of Amazon ECR
+        if: always()
+        run: docker logout ${{ steps.login-ecr.outputs.registry }}
+
+      - name: run post-deploy scripts
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd docker
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d
+            docker exec -d -w /app docker_php_1 php artisan migrate --force
